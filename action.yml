@@ -1,0 +1,17 @@
+# action.yml
+name: 'Provenance Test'
+description: 'Action to test Provenance'
+inputs:
+  provenance_version:  # version of Provenance
+    description: 'Version of Provenance to test against'
+    required: true
+    default: 'v1.8.0'
+  test_script:
+    description: 'Script used to run tests after provenance has been setup and is running'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.test_script }}
+    - ${{ inputs.provenance_version }}
