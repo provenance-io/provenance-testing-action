@@ -74,7 +74,7 @@ jobs:
           context: .
           target: run
           build-args: |
-            VERSION=${{ steps.prep.outputs.version }}
+            VERSION=${{ steps.meta.outputs.version }}
           file: Dockerfile
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
