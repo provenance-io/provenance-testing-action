@@ -72,7 +72,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          target: run
           build-args: |
             VERSION=${{ steps.meta.outputs.version }}
           file: Dockerfile
