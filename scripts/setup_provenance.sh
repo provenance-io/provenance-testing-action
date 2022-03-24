@@ -2,9 +2,14 @@
 
 # This script setups up Provenance and then runs a script it receives as an argument to do various tests afterwards
 
+echo "Arguments:"
+echo "$@"
+
 # get last argument as Provenance version
 Provenance_Version=${@: -1}
 
+echo "Provenance Version:"
+echo $Provenance_Version
 
 wget "https://github.com/provenance-io/provenance/releases/download/$Provenance_Version/provenance-linux-amd64-$Provenance_Version.zip"
 
