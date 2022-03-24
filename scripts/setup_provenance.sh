@@ -4,6 +4,12 @@
 
 Provenance_Version=$2
 
+# sometimes in docker there is an extra variable added
+if [ "$#" -ne 3 ]; then
+  Provenance_Version=$3
+fi
+
+
 wget "https://github.com/provenance-io/provenance/releases/download/$Provenance_Version/provenance-linux-amd64-$Provenance_Version.zip"
 
 # this will create a folder with both provenance and libwasm
@@ -41,5 +47,12 @@ sleep 10s
 
 # execute the script test that was passed in as an argument
 echo "Executing test..."
-"$1"
+
+# sometimes in docker there is an extra variable added
+if [ "$#" -ne 3 ]; then
+  "$2"
+else
+  "$1"
+fi
+
 echo "Test complete"
