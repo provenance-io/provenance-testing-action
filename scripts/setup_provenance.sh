@@ -2,12 +2,8 @@
 
 # This script setups up Provenance and then runs a script it receives as an argument to do various tests afterwards
 
-Provenance_Version=$2
-
-# sometimes in docker there is an extra variable added
-if [ "$#" -ne 3 ]; then
-  Provenance_Version=$3
-fi
+# get last argument as Provenance version
+Provenance_Version=${@: -1}
 
 
 wget "https://github.com/provenance-io/provenance/releases/download/$Provenance_Version/provenance-linux-amd64-$Provenance_Version.zip"
@@ -48,11 +44,6 @@ sleep 10s
 # execute the script test that was passed in as an argument
 echo "Executing test..."
 
-# sometimes in docker there is an extra variable added
-if [ "$#" -ne 3 ]; then
-  "$2"
-else
-  "$1"
-fi
+"${@: -2}"
 
 echo "Test complete"
