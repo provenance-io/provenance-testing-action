@@ -2,10 +2,7 @@
 
 # This script setups up Provenance and then runs a script it receives as an argument to do various tests afterwards
 
-echo "Arguments:"
-echo "$@"
-
-# get last argument as Provenance version
+# get the last argument as Provenance version (This is because of a difference between running as a docker image and as a github action)
 Provenance_Version=${@: -1}
 
 echo "Provenance Version:"

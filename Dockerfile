@@ -3,7 +3,6 @@ FROM golang:1.17-buster as build
 RUN apt-get update -y && apt-get upgrade -y && apt-get install -y libleveldb-dev
 RUN apt-get install -y unzip
 
-COPY --chown=0:0 ./scripts ./scripts
 COPY --chown=0:0 ./scripts/setup_provenance.sh /setup_provenance.sh
 
 # install jq for parsing output of queries when running Provenance
