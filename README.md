@@ -11,11 +11,10 @@ This action is published and can be brought into any project with the following:
 
 ```yaml
 - name: Smart Contract Test setup
-        uses: provenance-io/provenance-testing-action@v1.0.0-beta2
-        id: tutorial
-        with:
-          provenance_version: "v1.8.0"
-          test_script: "./scripts/name_test.sh"
+    uses: provenance-io/provenance-testing-action@v1.0.0
+    with:
+      provenance_version: "v1.8.0"
+      test_script: "./scripts/name_test.sh"
 ```
 
 ### Use as a docker image
