@@ -11,6 +11,16 @@ inputs:
   test_script:
     description: 'Script used to run tests after provenance has been setup and is running'
     required: false
+  generate_proposals:
+    description: 'Generate the store, instantiate, and migrate governance proposals'
+    required: false
+outputs:
+  store_code_proposal:
+    description: 'The store code governance proposal in json format'
+  instantiate_code_proposal:
+    description: 'The instantiate code governance proposal in json format'
+  migrate_code_proposal:
+    description: 'The migrate code governance proposal in json format'
 runs:
   using: composite
   steps:
@@ -27,3 +37,5 @@ runs:
       uses: ./test
       with:
         test_script: ${{ inputs.test_script }}
+        generate_proposals: ${{ inputs.generate_proposals }}
+

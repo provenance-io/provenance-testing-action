@@ -39,3 +39,19 @@ echo "Executing test..."
 $2
 
 echo "Test complete"
+
+if [ "$GENERATE_PROPOSALS" ]; then
+    echo "Generating proposals..."
+
+    # generate the store code proposal
+    store_code_proposal='{"store_code_proposal":"hello_store"}'
+    echo "::set-output name=store_code_proposal::$store_code_proposal"
+
+    # generate the instantiate code proposal
+    instantiate_code_proposal='{"instantiate_code_proposal":"hello_instantiate"}'
+    echo "::set-output name=instantiate_code_proposal::$instantiate_code_proposal"
+
+    # generate the migrate code proposal
+    migrate_code_proposal='{"migrate_code_proposal":"hello_migrate"}'
+    echo "::set-output name=migrate_code_proposal::$migrate_code_proposal"
+fi
