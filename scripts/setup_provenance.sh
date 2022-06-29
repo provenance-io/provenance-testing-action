@@ -8,7 +8,7 @@ Provenance_Version=${@: -1}
 echo "Provenance Version:"
 echo $Provenance_Version
 
-wget "https://github.com/provenance-io/provenance/releases/download/$Provenance_Version/provenance-linux-amd64-$Provenance_Version.zip"
+curl -LO https://github.com/provenance-io/provenance/releases/download/$PROVENANCE_VERSION/provenance-linux-amd64-$PROVENANCE_VERSION.zip
 
 # this will create a folder with both provenance and libwasm
 unzip "provenance-linux-amd64-$Provenance_Version.zip"
