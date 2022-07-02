@@ -1,6 +1,6 @@
 # action.yml
-name: 'Provenance Test'
-description: 'Action to test Provenance'
+name: 'Provenance Action'
+description: 'Action to test Provenance and Smart Contracts'
 inputs:
   provenance_version:  # version of Provenance
     description: 'Version of Provenance to test against'
@@ -14,15 +14,14 @@ inputs:
 runs:
   using: composite
   steps:
-    - run:
+    - name: validate provenance version
       uses: actions/github-script@v3
       if: ${{ inputs.provenance_version == '' && inputs.test_script == '' }}
       with:
         script: |
           core.setFailed('`provenance_version` or `provenance_pr` must be set')
-    - run:
-      uses: 'docker'
-      image: 'Dockerfile'
-      args:
-        - ${{ inputs.provenance_version }}
-        - ${{ inputs.test_script }}
+    - name: run smart contract test
+      uses: /test
+      with:
+        provenance_version: ${{ inputs.provenance_version }}
+        test_script: ${{ inputs.test_script }}
