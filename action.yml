@@ -2,24 +2,27 @@
 name: 'Provenance Action'
 description: 'Action to test Provenance and Smart Contracts'
 inputs:
+  github_token:
+    description: 'Github token from the workflow'
+    required: true
   provenance_version:  # version of Provenance
-    description: 'Version of Provenance to test'
-    required: false
-  provenance_branch:
-    description: 'Branch of Provenance to test'
-    required: false
+    description: 'Version of Provenance to test, either a release or a branch'
+    required: true
   test_script:
     description: 'Script used to run tests after provenance has been setup and is running'
     required: false
 runs:
   using: composite
   steps:
-    - name: validate provenance version
-      uses: actions/github-script@v3
-      if: ${{ inputs.provenance_version == '' && inputs.test_script == '' }}
+    - name: download provenance release
+      uses: dawidd6/action-download-artifact@v2
       with:
-        script: |
-          core.setFailed('`provenance_version` or `provenance_pr` must be set')
+        github_token: ${{ inputs.GITHUB_TOKEN }}
+        branch: ${{ inputs.provenance_version }}
+        repo: provenance-io/provenance
+        workflow: release.yml
+        workflow_conclusion: success
+        name: linux-zip
     - name: run smart contract test
       uses: ./test
       with:
