@@ -17,7 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Test Tutorial smart contract with provenance release
     steps:
-      - name: Smart Contract Test setup
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Smart Contract Test
         uses: ./
         with:
           provenance_version: "v1.8.0"
@@ -27,7 +29,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Test Tutorial smart contract with provenance pull request
     steps:
-      - name: Smart Contract Test setup
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Smart Contract Test
         uses: ./
         with:
           provenance_version: "v1.8.0"
