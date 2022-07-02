@@ -22,7 +22,7 @@ jobs:
       - name: Smart Contract Test
         uses: ./
         with:
-          provenance_version: "v1.8.0"
+          provenance_version: "v1.11.1-rc4"
           test_script: "./test/test.sh"
 
   test_with_provenance_pr:
@@ -34,5 +34,5 @@ jobs:
       - name: Smart Contract Test
         uses: ./
         with:
-          provenance_version: "v1.8.0"
+          provenance_branch: "release/v1.11.x"
           test_script: "./test/test.sh"

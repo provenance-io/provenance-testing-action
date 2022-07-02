@@ -10,4 +10,3 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.test_script }}
-    - ${{ inputs.provenance_version }}
