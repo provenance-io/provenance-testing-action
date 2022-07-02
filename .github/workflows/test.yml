@@ -13,7 +13,18 @@ jobs:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     if: "!startsWith(github.ref, 'refs/tags/') && github.ref != 'refs/heads/main'"
 
-  test_action:
+  test_with_provenance_release:
+    runs-on: ubuntu-latest
+    name: Test Tutorial Smart Contract
+    steps:
+      - name: Smart Contract Test setup
+        uses: ./
+        with:
+          provenance_version: "v1.8.0"
+          test_script: "./scripts/test.sh"
+
+  
+  test_with_provenance_pr:
     runs-on: ubuntu-latest
     name: Test Tutorial Smart Contract
     steps:
