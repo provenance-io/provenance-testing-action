@@ -4,14 +4,25 @@ description: 'Action to test Provenance'
 inputs:
   provenance_version:  # version of Provenance
     description: 'Version of Provenance to test against'
-    required: true
-    default: 'v1.8.0'
+    required: false
+  provenance_pr:
+    description: 'Pull Request of Provenance to test against'
+    required: false
   test_script:
     description: 'Script used to run tests after provenance has been setup and is running'
     required: true
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.provenance_version }}
-    - ${{ inputs.test_script }}
+  using: composite
+  steps:
+    - run:
+      uses: actions/github-script@v3
+      if: ${{ inputs.provenance_version == '' && inputs.test_script == '' }}
+      with:
+        script: |
+          core.setFailed('`provenance_version` or `provenance_pr` must be set')
+    - run:
+      uses: 'docker'
+      image: 'Dockerfile'
+      args:
+        - ${{ inputs.provenance_version }}
+        - ${{ inputs.test_script }}
