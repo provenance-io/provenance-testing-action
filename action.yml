@@ -21,6 +21,6 @@ runs:
         script: |
           core.setFailed('`provenance_version` or `provenance_pr` must be set')
     - name: run smart contract test
-      uses: /test
+      uses: ./test
       with:
         test_script: ${{ inputs.test_script }}
