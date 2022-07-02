@@ -5,7 +5,7 @@ jobs:
   #  This action cleans up previously running instances of a workflow on the same branch. This accomplishes
   #  the task of automatically cancelling CI runs on pushes to the same branch, which is a common feature in
   #  most CI systems but currently not possible with GitHub actions.
-  cleanup-runs:
+  cleanup_runs:
     runs-on: ubuntu-latest
     steps:
       - uses: rokroskar/workflow-run-cleanup-action@v0.3.3
@@ -15,7 +15,7 @@ jobs:
 
   test_with_provenance_release:
     runs-on: ubuntu-latest
-    name: Test Tutorial smart contract with provenance release
+    name: Test with provenance release
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -27,7 +27,7 @@ jobs:
 
   test_with_provenance_pr:
     runs-on: ubuntu-latest
-    name: Test Tutorial smart contract with provenance pull request
+    name: Test with provenance pull request
     steps:
       - name: Checkout
         uses: actions/checkout@v2
