@@ -3,15 +3,15 @@
 # This script setups up Provenance and then runs a script it receives as an argument to do various tests afterwards
 
 # get the last argument as Provenance version (This is because of a difference between running as a docker image and as a github action)
-Provenance_Version=${@: -1}
+PROVENANCE_VERSION=$1
 
 echo "Provenance Version:"
-echo $Provenance_Version
+echo $PROVENANCE_VERSION
 
-curl -LO https://github.com/provenance-io/provenance/releases/download/$PROVENANCE_VERSION/provenance-linux-amd64-$PROVENANCE_VERSION.zip
+curl -LO "https://github.com/provenance-io/provenance/releases/download/$PROVENANCE_VERSION/provenance-linux-amd64-$PROVENANCE_VERSION.zip"
 
 # this will create a folder with both provenance and libwasm
-unzip "provenance-linux-amd64-$Provenance_Version.zip"
+unzip "provenance-linux-amd64-$PROVENANCE_VERSION.zip"
 
 mkdir ./build
 
@@ -46,6 +46,6 @@ sleep 10s
 # execute the script test that was passed in as an argument
 echo "Executing test..."
 
-"${@: -2}"
+$2
 
 echo "Test complete"
