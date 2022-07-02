@@ -36,5 +36,5 @@ jobs:
         uses: ./
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          provenance_branch: "release/v1.11.x"
+          provenance_version: "release/v1.11.x"
           test_script: "./test/test.sh"
