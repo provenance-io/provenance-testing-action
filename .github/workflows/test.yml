@@ -23,7 +23,7 @@ jobs:
         uses: ./
         with:
           provenance_version: "v1.8.0"
-          test_script: "./scripts/test.sh"
+          test_script: "./test/test.sh"
 
   test_with_provenance_pr:
     runs-on: ubuntu-latest
@@ -35,4 +35,4 @@ jobs:
         uses: ./
         with:
           provenance_version: "v1.8.0"
-          test_script: "./scripts/test.sh"
+          test_script: "./test/test.sh"
