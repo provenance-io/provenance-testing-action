@@ -34,8 +34,7 @@ runs:
         workflow_conclusion: success
         name: linux-zip
     - name: run smart contract test
-      uses: ./test
+      uses: ./smart-contract-action
       with:
         test_script: ${{ inputs.test_script }}
         generate_proposals: ${{ inputs.generate_proposals }}
-
