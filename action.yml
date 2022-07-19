@@ -1,17 +1,29 @@
 # action.yml
-name: 'Provenance Test'
-description: 'Action to test Provenance'
+name: 'Provenance Action'
+description: 'Action to test Provenance and Smart Contracts'
 inputs:
-  provenance_version:  # version of Provenance
-    description: 'Version of Provenance to test against'
+  github_token:
+    description: 'Github token from the workflow'
     required: true
-    default: 'v1.8.0'
+  provenance_version:  # version of Provenance
+    description: 'Version of Provenance to test, either a release or a branch'
+    required: true
   test_script:
     description: 'Script used to run tests after provenance has been setup and is running'
-    required: true
+    required: false
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.test_script }}
-    - ${{ inputs.provenance_version }}
+  using: composite
+  steps:
+    - name: download provenance release
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        github_token: ${{ inputs.GITHUB_TOKEN }}
+        branch: ${{ inputs.provenance_version }}
+        repo: provenance-io/provenance
+        workflow: release.yml
+        workflow_conclusion: success
+        name: linux-zip
+    - name: run smart contract test
+      uses: ./test
+      with:
+        test_script: ${{ inputs.test_script }}
