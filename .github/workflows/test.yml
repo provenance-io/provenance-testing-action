@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Smart Contract Test
+      - name: Smart Contract Action
         uses: ./
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -35,7 +35,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Smart Contract Test
+      - name: Smart Contract Action
         uses: ./
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
