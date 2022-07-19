@@ -27,6 +27,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           provenance_version: "v1.11.1"
           test_script: "./smart-contract-action/scripts/test/test.sh"
+          generate_proposals: true
 
   test_with_provenance_pr:
     runs-on: ubuntu-latest
@@ -40,3 +41,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           provenance_version: "dwedul/update-swagger-bank"
           test_script: "./smart-contract-action/scripts/test/test.sh"
+          generate_proposals: true
