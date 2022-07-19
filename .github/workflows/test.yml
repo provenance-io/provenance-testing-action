@@ -1,5 +1,7 @@
 name: Test
 on:
+  push:
+    branches: [ main ]
   pull_request:
 jobs:
   #  This action cleans up previously running instances of a workflow on the same branch. This accomplishes
