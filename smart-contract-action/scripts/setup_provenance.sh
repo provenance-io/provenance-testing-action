@@ -47,14 +47,14 @@ if [ "$GENERATE_PROPOSALS" ]; then
     echo "Generating proposals..."
 
     # generate the store code proposal
-    store_code_proposal='{"store_code_proposal":"hello_store"}'
-    echo "::set-output name=store_code_proposal::$store_code_proposal"
+    echo '{"store_code_proposal":"hello_store"}' > store_code_proposal.json
+    echo "::set-output name=store_code_proposal::store_code_proposal.json"
 
     # generate the instantiate code proposal
-    instantiate_code_proposal='{"instantiate_code_proposal":"hello_instantiate"}'
-    echo "::set-output name=instantiate_code_proposal::$instantiate_code_proposal"
+    echo '{"instantiate_code_proposal":"hello_instantiate"}' > instantiate_code_proposal.json
+    echo "::set-output name=instantiate_code_proposal::instantiate_code_proposal.json"
 
     # generate the migrate code proposal
-    migrate_code_proposal='{"migrate_code_proposal":"hello_migrate"}'
-    echo "::set-output name=migrate_code_proposal::$migrate_code_proposal"
+    echo '{"migrate_code_proposal":"hello_migrate"}' > migrate_code_proposal.json
+    echo "::set-output name=migrate_code_proposal::migrate_code_proposal.json"
 fi
