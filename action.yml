@@ -14,16 +14,6 @@ inputs:
   generate_proposals:
     description: 'Generate the store, instantiate, and migrate governance proposals'
     required: false
-#outputs:
-#  store_code_proposal:
-#    description: 'The store code governance proposal in json format'
-#    value: ${{ steps.smart-contract-action.outputs.store_code_proposal }}
-#  instantiate_code_proposal:
-#    description: 'The instantiate code governance proposal in json format'
-#    value: ${{ steps.smart-contract-action.outputs.instantiate_code_proposal }}
-#  migrate_code_proposal:
-#    description: 'The migrate code governance proposal in json format'
-#    value: ${{ steps.smart-contract-action.outputs.migrate_code_proposal }}
 runs:
   using: composite
   steps:
@@ -45,8 +35,8 @@ runs:
     - name: attach artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: proposals
+        name: ${{ github.job }}_proposals.zip
         path: |
-          ${{ steps.smart-contract-action.outputs.store_code_proposal }}
-          ${{ steps.smart-contract-action.outputs.instantiate_code_proposal }}
-          ${{ steps.smart-contract-action.outputs.migrate_code_proposal }}
+          store_code_proposal.json
+          instantiate_code_proposal.json
+          migrate_code_proposal.json
