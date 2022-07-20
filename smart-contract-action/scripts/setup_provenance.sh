@@ -1,5 +1,8 @@
 #!/bin/bash -e
 
+TEST_SCRIPT=$1
+GENERATE_PROPOSALS=$2
+
 # this will create a folder with both provenance and libwasm
 unzip "provenance-linux-amd64-*.zip"
 
@@ -36,7 +39,7 @@ sleep 10s
 # execute the script test that was passed in as an argument
 echo "Executing test..."
 
-$2
+$TEST_SCRIPT
 
 echo "Test complete"
 
