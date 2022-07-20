@@ -14,13 +14,16 @@ inputs:
   generate_proposals:
     description: 'Generate the store, instantiate, and migrate governance proposals'
     required: false
-outputs:
-  store_code_proposal:
-    description: 'The store code governance proposal in json format'
-  instantiate_code_proposal:
-    description: 'The instantiate code governance proposal in json format'
-  migrate_code_proposal:
-    description: 'The migrate code governance proposal in json format'
+#outputs:
+#  store_code_proposal:
+#    description: 'The store code governance proposal in json format'
+#    value: ${{ steps.smart-contract-action.outputs.store_code_proposal }}
+#  instantiate_code_proposal:
+#    description: 'The instantiate code governance proposal in json format'
+#    value: ${{ steps.smart-contract-action.outputs.instantiate_code_proposal }}
+#  migrate_code_proposal:
+#    description: 'The migrate code governance proposal in json format'
+#    value: ${{ steps.smart-contract-action.outputs.migrate_code_proposal }}
 runs:
   using: composite
   steps:
@@ -33,8 +36,17 @@ runs:
         workflow: release.yml
         workflow_conclusion: success
         name: linux-zip
-    - name: run smart contract test
+    - name: run smart contract action
+      id: smart-contract-action
       uses: ./smart-contract-action
       with:
         test_script: ${{ inputs.test_script }}
         generate_proposals: ${{ inputs.generate_proposals }}
+    - name: attach artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: proposals
+        path: |
+          ${{ steps.smart-contract-action.outputs.store_code_proposal }}
+          ${{ steps.smart-contract-action.outputs.instantiate_code_proposal }}
+          ${{ steps.smart-contract-action.outputs.migrate_code_proposal }}
