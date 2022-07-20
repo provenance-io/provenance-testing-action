@@ -11,7 +11,7 @@ For an example of this in use look at the smart contract tests in `provwasm` [li
 ### Testing with a released version of Provenance
 ```yaml
 - name: Smart Contract Test setup
-    uses: provenance-io/provenance-testing-action@v2.0.0
+    uses: provenance-io/provenance-testing-action@v1.1.0
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
       provenance_version: "v1.11.1"
@@ -22,7 +22,7 @@ For an example of this in use look at the smart contract tests in `provwasm` [li
 Note: The `provenance_version` is a branch which has an associated `Pull Request` and a **successful** run of the [Provenance Build and Release action](https://github.com/provenance-io/provenance/actions/workflows/release.yml)
 ```yaml
 - name: Smart Contract Test setup
-    uses: provenance-io/provenance-testing-action@v2.0.0
+    uses: provenance-io/provenance-testing-action@v1.1.0
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
       provenance_version: "issue/new-feature"
