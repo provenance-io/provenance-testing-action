@@ -6,7 +6,7 @@ PROV_CMD="./bin/provenanced"
 export node0=$("$PROV_CMD" keys show -a validator --keyring-backend test -t)
 
 # Run the contract
-"$PROV_CMD" tx wasm store ./test/provwasm_tutorial.wasm \
+"$PROV_CMD" tx wasm store ./smart-contract-action/test/provwasm_tutorial.wasm \
   	--from="$node0" \
     --keyring-backend="test" \
     --chain-id="testing" \

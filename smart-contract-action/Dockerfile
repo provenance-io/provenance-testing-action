@@ -8,9 +8,9 @@ RUN apt-get upgrade -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/
 
-COPY --chown=0:0 ./scripts/setup_provenance.sh /setup_provenance.sh
+COPY --chown=0:0 ./scripts /scripts
 
 RUN ln -s /usr/lib/x86_64-linux-gnu/libleveldb.so /usr/lib/x86_64-linux-gnu/libleveldb.so.1
 
 # Initialize provenance to run with the default node configuration
-ENTRYPOINT ["/setup_provenance.sh"]
+ENTRYPOINT ["/scripts/setup_provenance.sh"]

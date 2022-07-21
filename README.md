@@ -8,39 +8,51 @@ This action setups up Provenance in a docker container and allows the user to pa
 This action is published and can be brought into any project.
 For an example of this in use look at the smart contract tests in `provwasm` [link](https://github.com/provenance-io/provwasm/blob/main/.github/workflows/test.yml#L55)
 
-### Testing with a released version of Provenance
+---
+
+### Smart Contract Actions
+
+#### Testing
+
+- #### With a released version of Provenance
+    ```yaml
+    - name: Smart Contract Test setup
+        uses: provenance-io/provenance-testing-action@v1.1.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          provenance_version: "v1.11.1"
+          test_script: "./scripts/name_test.sh"
+    ```
+
+- #### With a development version of Provenance
+    Note: `provenance_version` is a branch which has an associated `Pull Request` and a **successful** run of the [Provenance Build and Release action](https://github.com/provenance-io/provenance/actions/workflows/release.yml)
+    ```yaml
+    - name: Smart Contract Test setup
+        uses: provenance-io/provenance-testing-action@v1.1.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          provenance_version: "issue/new-feature"
+          test_script: "./scripts/name_test.sh"
+    ```
+
+#### Generating governance proposals
 ```yaml
 - name: Smart Contract Test setup
-    uses: provenance-io/provenance-testing-action@v2.0.0
+    uses: provenance-io/provenance-testing-action@v1.1.0
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
       provenance_version: "v1.11.1"
       test_script: "./scripts/name_test.sh"
 ```
 
-### Testing with a development version of Provenance
-Note: The `provenance_version` is a branch which has an associated `Pull Request` and a **successful** run of the [Provenance Build and Release action](https://github.com/provenance-io/provenance/actions/workflows/release.yml)
-```yaml
-- name: Smart Contract Test setup
-    uses: provenance-io/provenance-testing-action@v2.0.0
-    with:
-      github_token: ${{ secrets.GITHUB_TOKEN }}
-      provenance_version: "issue/new-feature"
-      test_script: "./scripts/name_test.sh"
-```
+---
 
-## Use as a docker image
-The docker image is deployed at: https://hub.docker.com/r/provenanceio/provenance-testing-action
+### Configuration
 
-This image can be downloaded and run.  However to do so, instead of just running the image you will need to pull the image, create a container, copy the test script and any files it needs into the container and then run it like the following pulled from the `Makefile` in [Provwasm](https://github.com/provenance-io/provwasm)
-
-```Makefile
-.PHONY: test-tutorial
-test-tutorial: tutorial optimize-tutorial
-	docker rm -f test_container || true
-	docker pull provenanceio/provenance-testing-action
-	docker create --name test_container provenanceio/provenance-testing-action --entrypoint	"/scripts/tutorial_test.sh" "$(PROVENANCE_TEST_VERSION)"
-	docker cp ./scripts test_container:/scripts
-	docker cp ./contracts test_container:/go/contracts
-	docker start test_container
-```
+| Key                  |  Type   |   Required   | Description                                                             |
+|----------------------|:-------:|:------------:|-------------------------------------------------------------------------|
+| `github_token`       |  token  | **Required** | set to `${{ secrets.GITHUB_TOKEN }}`                                    |
+| `provenance_version` | string  | **Required** | Version of Provenance to test, either a release or a branch             |
+| `test_script`        | string  |  *Optional*  | Script used to run tests after provenance has been setup and is running |
+| `generate_proposals` | boolean |  *Optional*  | Generate the store, instantiate, and migrate governance proposals       |
+| `wasm_path`          | string  |  *Optional*  | Path to the smart contract wasm                                         |
