@@ -1,12 +1,9 @@
 # Provenance Testing Action
-A Github action to simplify testing with the Provenance blockchain.
-
-## Summary
 This action setups up Provenance in a docker container and allows the user to pass in both the version of provenance to use as well as a test script.  After Provenance is up running the test script is executed.  This allows testing of any of Provenance's features inside of this docker container as part of a github release process.
 
 ## Use as a github action
 This action is published and can be brought into any project.
-For an example of this in use look at the smart contract tests in `provwasm` [link](https://github.com/provenance-io/provwasm/blob/main/.github/workflows/test.yml#L55)
+For an example of this in use look at [this repository's test workflow](https://github.com/provenance-io/provenance-testing-action/blob/main/.github/workflows/test.yml#L24)
 
 ---
 
@@ -44,6 +41,10 @@ For an example of this in use look at the smart contract tests in `provwasm` [li
       provenance_version: "v1.11.1"
       test_script: "./scripts/name_test.sh"
 ```
+
+After a successful run, the proposals will be added to an archive named `$GITHUB_JOB_proposals.zip` and attached to the build.
+
+**IMPORTANT**: The json proposals have placeholders for user-specific data (e.g., title, account addresses, code_id). These placeholders must be replaced in order to submit the proposal.
 
 ---
 
