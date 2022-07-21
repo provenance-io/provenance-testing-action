@@ -14,6 +14,9 @@ inputs:
   generate_proposals:
     description: 'Generate the store, instantiate, and migrate governance proposals'
     required: false
+  wasm_path:
+    description: 'Path to the smart contract wasm'
+    required:  false
 runs:
   using: composite
   steps:
@@ -32,11 +35,12 @@ runs:
       with:
         test_script: ${{ inputs.test_script }}
         generate_proposals: ${{ inputs.generate_proposals }}
+        wasm_path: ${{ inputs.wasm_path }}
     - name: attach artifacts
       uses: actions/upload-artifact@v3
       with:
         name: ${{ github.job }}_proposals.zip
         path: |
-          store_code_proposal.json
-          instantiate_code_proposal.json
-          migrate_code_proposal.json
+          wasm-store-proposal.json
+          instantiate-contract-proposal.json
+          migrate-contract-proposal.json
