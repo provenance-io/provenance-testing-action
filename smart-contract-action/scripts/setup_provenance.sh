@@ -37,12 +37,15 @@ nohup "$PROV_CMD" -t start &>/dev/null &
 echo "Sleeping for provenance to start up"
 sleep 5s
 
-# execute the script test that was passed in as an argument
-echo "Executing test..."
 
-$TEST_SCRIPT
+if [ "$TEST_SCRIPT" != false ]; then
+  # execute the script test that was passed in as an argument
+  echo "Executing test..."
 
-echo "Test complete"
+  $TEST_SCRIPT
+
+  echo "Test complete"
+fi
 
 if [ "$GENERATE_PROPOSALS" ]; then
   printf "\n\nGenerating proposals...\n\n"
