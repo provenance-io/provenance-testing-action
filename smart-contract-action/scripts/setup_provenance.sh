@@ -59,7 +59,7 @@ if [ "$GENERATE_PROPOSALS" ]; then
     --instantiate-only-address "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
     --from "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
     --generate-only \
-    --sequence 1 | jq -f scripts/governance/wasm-store-contract-filter '.body.messages[0]' > wasm-store-proposal.json
+    --sequence 1 | jq -f scripts/governance/wasm-store-contract-filter.jq '.body.messages[0]' > wasm-store-proposal.json
 
   # generate and sanitize the instantiate code proposal
   "$PROV_CMD" tx gov submit-proposal instantiate-contract 1 {} \
@@ -70,7 +70,7 @@ if [ "$GENERATE_PROPOSALS" ]; then
     --admin "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)"   --testnet \
     --from "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
     --generate-only \
-    --sequence 1 | jq -f scripts/governance/instantiate-contract-filter '.body.messages[0]' > instantiate-contract-proposal.json
+    --sequence 1 | jq -f scripts/governance/instantiate-contract-filter.jq '.body.messages[0]' > instantiate-contract-proposal.json
 
   # generate and sanitize the migrate code proposal
   "$PROV_CMD" tx gov submit-proposal migrate-contract \
@@ -78,5 +78,5 @@ if [ "$GENERATE_PROPOSALS" ]; then
     --title title --description description \
     --from "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
     --generate-only \
-    --testnet --sequence 1 | jq -f scripts/governance/migrate-contract-filter '.body.messages[0]' > migrate-contract-proposal.json
+    --testnet --sequence 1 | jq -f scripts/governance/migrate-contract-filter.jq '.body.messages[0]' > migrate-contract-proposal.json
 fi
