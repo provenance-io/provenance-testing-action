@@ -54,10 +54,10 @@ if [ "$GENERATE_PROPOSALS" ]; then
   "$PROV_CMD" tx gov submit-proposal wasm-store "$WASM_PATH" \
     --title "title" \
     --description "description" \
-    --run-as "$("$PROV_CMD" keys show -a validator --home build/run/provenanced --keyring-backend test --testnet)" \
+    --run-as "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
     --testnet \
-    --instantiate-only-address "$("$PROV_CMD" keys show -a validator --home build/run/provenanced --keyring-backend test --testnet)" \
-    --from "$("$PROV_CMD" keys show -a validator --home build/run/provenanced --keyring-backend test --testnet)" \
+    --instantiate-only-address "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
+    --from "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
     --generate-only \
     --sequence 1 | jq -f scripts/governance/wasm-store-contract-filter '.body.messages[0]' > wasm-store-proposal.json
 
@@ -66,17 +66,17 @@ if [ "$GENERATE_PROPOSALS" ]; then
     --title "title" \
     --description "description" \
     --label "label" \
-    --run-as "$("$PROV_CMD" keys show -a validator --home build/run/provenanced --keyring-backend test --testnet)" \
-    --admin "$("$PROV_CMD" keys show -a validator --home build/run/provenanced --keyring-backend test --testnet)"   --testnet \
-    --from "$("$PROV_CMD" keys show -a validator --home build/run/provenanced --keyring-backend test --testnet)" \
+    --run-as "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
+    --admin "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)"   --testnet \
+    --from "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
     --generate-only \
     --sequence 1 | jq -f scripts/governance/instantiate-contract-filter '.body.messages[0]' > instantiate-contract-proposal.json
 
   # generate and sanitize the migrate code proposal
   "$PROV_CMD" tx gov submit-proposal migrate-contract \
-    "$("$PROV_CMD" keys show -a validator --home build/run/provenanced --keyring-backend test --testnet)" 1 {} \
+    "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" 1 {} \
     --title title --description description \
-    --from "$("$PROV_CMD" keys show -a validator --home build/run/provenanced --keyring-backend test --testnet)" \
+    --from "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
     --generate-only \
     --testnet --sequence 1 | jq -f scripts/governance/migrate-contract-filter '.body.messages[0]' > migrate-contract-proposal.json
 fi
