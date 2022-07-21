@@ -45,7 +45,7 @@ $TEST_SCRIPT
 echo "Test complete"
 
 if [ "$GENERATE_PROPOSALS" ]; then
-  echo "Generating proposals..."
+  printf "\n\nGenerating proposals...\n\n"
 
   # create an account to generate the proposals since the sequence will always be 1
   "$PROV_CMD" keys add proposal_generator --keyring-backend test --testnet --hd-path "44'/1'/0'/0/0"
@@ -59,7 +59,7 @@ if [ "$GENERATE_PROPOSALS" ]; then
     --instantiate-only-address "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
     --from "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
     --generate-only \
-    --sequence 1 | jq -f scripts/governance/wasm-store-contract-filter.jq '.body.messages[0]' > wasm-store-proposal.json
+    --sequence 1 | jq '.body.messages[0]' | jq -f /scripts/governance/wasm-store-filter.jq > wasm-store-proposal.json
 
   # generate and sanitize the instantiate code proposal
   "$PROV_CMD" tx gov submit-proposal instantiate-contract 1 {} \
@@ -70,7 +70,7 @@ if [ "$GENERATE_PROPOSALS" ]; then
     --admin "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)"   --testnet \
     --from "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
     --generate-only \
-    --sequence 1 | jq -f scripts/governance/instantiate-contract-filter.jq '.body.messages[0]' > instantiate-contract-proposal.json
+    --sequence 1 | jq '.body.messages[0]' | jq -f /scripts/governance/instantiate-contract-filter.jq > instantiate-contract-proposal.json
 
   # generate and sanitize the migrate code proposal
   "$PROV_CMD" tx gov submit-proposal migrate-contract \
@@ -78,5 +78,5 @@ if [ "$GENERATE_PROPOSALS" ]; then
     --title title --description description \
     --from "$("$PROV_CMD" keys show -a proposal_generator --keyring-backend test --testnet)" \
     --generate-only \
-    --testnet --sequence 1 | jq -f scripts/governance/migrate-contract-filter.jq '.body.messages[0]' > migrate-contract-proposal.json
+    --testnet --sequence 1 | jq '.body.messages[0]' | jq -f /scripts/governance/migrate-contract-filter.jq > migrate-contract-proposal.json
 fi
