@@ -29,6 +29,11 @@ runs:
         workflow: release.yml
         workflow_conclusion: success
         name: linux-zip
+    - name: debug
+      shell: bash
+      run: |
+        pwd
+        ls -la
     - name: run smart contract action
       id: smart-contract-action
       uses: ./smart-contract-action
