@@ -21,12 +21,17 @@ jobs:
   create_release:
     runs-on: ubuntu-latest
     steps:
-      - name: Create release ${{ github.ref }}
+      - name: Initialize build
+        id: build_init
+        run: echo "::set-output name=version::${GITHUB_REF##*/}"
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Create release ${{ steps.build_init.outputs.version }}
         uses: softprops/action-gh-release@v1
         id: create_release
         with:
-          tag_name: ${{ github.ref }}
-          name: ${{ github.ref }}
+          tag_name: ${{ steps.build_init.outputs.version }}
+          name: ${{ steps.build_init.outputs.version }}
           draft: false
           prerelease: false
           body_path: RELEASE_CHANGELOG.md
