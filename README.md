@@ -42,7 +42,7 @@ For an example of this in use look at [this repository's test workflow](https://
       test_script: "./scripts/name_test.sh"
 ```
 
-After a successful run, the proposals will be added to an archive named `$GITHUB_JOB_proposals.zip` and attached to the build.
+After a successful run, the proposals will be added to an archive named `$GITHUB_JOB_proposals` and attached to the build.
 
 **IMPORTANT**: The json proposals have placeholders for user-specific data (e.g., title, account addresses, code_id). These placeholders must be replaced in order to submit the proposal.
 

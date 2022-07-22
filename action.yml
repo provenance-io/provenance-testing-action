@@ -39,7 +39,7 @@ runs:
     - name: attach artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ github.job }}_proposals.zip
+        name: ${{ github.job }}_proposals
         path: |
           wasm-store-proposal.json
           instantiate-contract-proposal.json
