@@ -30,21 +30,6 @@ jobs:
           generate_proposals: true
           wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
 
-  test_with_provenance_pr:
-    runs-on: ubuntu-latest
-    name: Test with provenance pull request with proposals
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Smart Contract Action
-        uses: ./
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          provenance_version: "dwedul/update-swagger-bank"
-          test_script: "./smart-contract-action/test/test.sh"
-          generate_proposals: true
-          wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
-
   test_with_provenance_release_no_script:
     runs-on: ubuntu-latest
     name: Test with provenance release without proposals
