@@ -25,7 +25,7 @@ jobs:
         uses: ./
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          provenance_version: "v1.11.1"
+          provenance_version: "v1.13.0"
           test_script: "./smart-contract-action/test/test.sh"
           generate_proposals: true
           wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
@@ -55,7 +55,7 @@ jobs:
         uses: ./
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          provenance_version: "v1.11.1"
+          provenance_version: "v1.13.0"
           generate_proposals: true
           wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
 
