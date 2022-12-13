@@ -1,8 +1,9 @@
 #!/bin/bash -e
 
-TEST_SCRIPT=$1
-GENERATE_PROPOSALS=$2
-WASM_PATH=$3
+INIT_DATA=$1
+TEST_SCRIPT=$2
+GENERATE_PROPOSALS=$3
+WASM_PATH=$4
 
 # this will create a folder with both provenance and libwasm
 unzip "provenance-linux-amd64-*.zip"
@@ -12,6 +13,14 @@ mkdir ./build
 PROV_CMD="./bin/provenanced"
 PIO_HOME="./build"
 export PIO_HOME
+export PROV_CMD
+
+if [ "$INIT_DATA" != false ]; then
+  # place the initial config data in the default location
+  echo "Setting initial data..."
+
+  cp -r "$INIT_DATA"/* $PIO_HOME
+fi
 
 if [ ! -d "$PIO_HOME/config" ]; then
   "$PROV_CMD" -t init --chain-id=testing testing
@@ -32,11 +41,13 @@ if [ ! -d "$PIO_HOME/config" ]; then
       --activate --keyring-backend test
   "$PROV_CMD" -t collect-gentxs
 fi
+
 nohup "$PROV_CMD" -t start &>/dev/null &
 
 echo "Sleeping for provenance to start up"
 sleep 5s
 
+"$PROV_CMD" -t q marker holding nhash
 
 if [ "$TEST_SCRIPT" != false ]; then
   # execute the script test that was passed in as an argument
@@ -47,7 +58,7 @@ if [ "$TEST_SCRIPT" != false ]; then
   echo "Test complete"
 fi
 
-if [ "$GENERATE_PROPOSALS" ]; then
+if [ "$GENERATE_PROPOSALS" != false ]; then
   printf "\n\nGenerating proposals...\n\n"
 
   # create an account to generate the proposals since the sequence will always be 1
