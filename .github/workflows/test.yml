@@ -58,3 +58,18 @@ jobs:
           provenance_version: "v1.11.1"
           generate_proposals: true
           wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
+
+  test_with_init_data:
+    runs-on: ubuntu-latest
+    name: Test with provenance release without proposals
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Smart Contract Action
+        uses: ./
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          provenance_version: "v1.13.0"
+          init_data: "./smart-contract-action/test/init_data"
+          generate_proposals: true
+          wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
