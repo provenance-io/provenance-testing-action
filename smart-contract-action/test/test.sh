@@ -1,13 +1,11 @@
 #!/bin/bash -e
 
-# This script stores, instantiates and executes the tutorial smart contract
+# This script is a sanity check that stores the tutorial smart contract
 PROV_CMD="./bin/provenanced"
-
-export node0=$("$PROV_CMD" keys show -a validator --keyring-backend test -t)
 
 # Run the contract
 "$PROV_CMD" tx wasm store ./smart-contract-action/test/provwasm_tutorial.wasm \
-  	--from="$node0" \
+  	--from=validator \
     --keyring-backend="test" \
     --chain-id="testing" \
     --gas=auto \
