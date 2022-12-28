@@ -5,9 +5,12 @@ inputs:
   github_token:
     description: 'Github token from the workflow'
     required: true
-  provenance_version:  # version of Provenance
+  provenance_version:
     description: 'Version of Provenance to test, either a release or a branch'
     required: true
+  init_data:
+    description: 'Initial data directory to be used for starting Provenance'
+    required: false
   test_script:
     description: 'Script used to run tests after provenance has been setup and is running'
     required: false
@@ -33,6 +36,7 @@ runs:
       id: smart-contract-action
       uses: ./smart-contract-action
       with:
+        init_data: ${{ inputs.init_data }}
         test_script: ${{ inputs.test_script }}
         generate_proposals: ${{ inputs.generate_proposals }}
         wasm_path: ${{ inputs.wasm_path }}

@@ -14,10 +14,10 @@ For an example of this in use look at [this repository's test workflow](https://
 - #### With a released version of Provenance
     ```yaml
     - name: Smart Contract Test setup
-        uses: provenance-io/provenance-testing-action@v1.1.0
+        uses: provenance-io/provenance-testing-action@v1.1.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          provenance_version: "v1.11.1"
+          provenance_version: "v1.13.0"
           test_script: "./scripts/name_test.sh"
     ```
 
@@ -25,7 +25,7 @@ For an example of this in use look at [this repository's test workflow](https://
     Note: `provenance_version` is a branch which has an associated `Pull Request` and a **successful** run of the [Provenance Build and Release action](https://github.com/provenance-io/provenance/actions/workflows/release.yml)
     ```yaml
     - name: Smart Contract Test setup
-        uses: provenance-io/provenance-testing-action@v1.1.0
+        uses: provenance-io/provenance-testing-action@v1.1.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           provenance_version: "issue/new-feature"
@@ -35,11 +35,24 @@ For an example of this in use look at [this repository's test workflow](https://
 #### Generating governance proposals
 ```yaml
 - name: Smart Contract Test setup
-    uses: provenance-io/provenance-testing-action@v1.1.0
+    uses: provenance-io/provenance-testing-action@v1.1.1
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
-      provenance_version: "v1.11.1"
+      provenance_version: "v1.13.0"
       test_script: "./scripts/name_test.sh"
+      generate_proposals: true
+```
+
+#### Using provided initial data for Provenance
+```yaml
+- name: Smart Contract Test setup
+    uses: provenance-io/provenance-testing-action@v1.1.1
+    with:
+      github_token: ${{ secrets.GITHUB_TOKEN }}
+      provenance_version: "v1.13.0"
+      init_data: "./smart_contract_action/test/init_data"
+      test_script: "./smart_contract_action/scripts/name_test.sh"
+      generate_proposals: true
 ```
 
 After a successful run, the proposals will be added to an archive named `$GITHUB_JOB_proposals.zip` and attached to the build.
@@ -50,10 +63,11 @@ After a successful run, the proposals will be added to an archive named `$GITHUB
 
 ### Configuration
 
-| Key                  |  Type   |   Required   | Description                                                             |
-|----------------------|:-------:|:------------:|-------------------------------------------------------------------------|
-| `github_token`       |  token  | **Required** | set to `${{ secrets.GITHUB_TOKEN }}`                                    |
-| `provenance_version` | string  | **Required** | Version of Provenance to test, either a release or a branch             |
-| `test_script`        | string  |  *Optional*  | Script used to run tests after provenance has been setup and is running |
-| `generate_proposals` | boolean |  *Optional*  | Generate the store, instantiate, and migrate governance proposals       |
-| `wasm_path`          | string  |  *Optional*  | Path to the smart contract wasm                                         |
+| Key                  |  Type   |   Required   | Description                                                                                                                                                                                              |
+|----------------------|:-------:|:------------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `github_token`       |  token  | **Required** | set to `${{ secrets.GITHUB_TOKEN }}`                                                                                                                                                                     |
+| `provenance_version` | string  | **Required** | Version of Provenance to test, either a release or a branch                                                                                                                                              |
+| `init_data`          | string  |  *Optional*  | The directory that contains the initial seed data for Provenance. It should contain the `config`, `data`, and `keyring-test` directories. Example: [init_data](smart-contract-action%2Ftest%2Finit_data) |
+| `test_script`        | string  |  *Optional*  | Script used to run tests after provenance has been setup and is running                                                                                                                                  |
+| `generate_proposals` | boolean |  *Optional*  | Generate the store, instantiate, and migrate governance proposals                                                                                                                                        |
+| `wasm_path`          | string  |  *Optional*  | Path to the smart contract wasm                                                                                                                                                                          |
