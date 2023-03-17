@@ -14,10 +14,10 @@ For an example of this in use look at [this repository's test workflow](https://
 - #### With a released version of Provenance
     ```yaml
     - name: Smart Contract Test setup
-        uses: provenance-io/provenance-testing-action@v1.1.1
+        uses: provenance-io/provenance-testing-action@v1.1.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          provenance_version: "v1.13.0"
+          provenance_version: "v1.14.1"
           test_script: "./scripts/name_test.sh"
     ```
 
@@ -25,7 +25,7 @@ For an example of this in use look at [this repository's test workflow](https://
     Note: `provenance_version` is a branch which has an associated `Pull Request` and a **successful** run of the [Provenance Build and Release action](https://github.com/provenance-io/provenance/actions/workflows/release.yml)
     ```yaml
     - name: Smart Contract Test setup
-        uses: provenance-io/provenance-testing-action@v1.1.1
+        uses: provenance-io/provenance-testing-action@v1.1.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           provenance_version: "issue/new-feature"
@@ -35,10 +35,10 @@ For an example of this in use look at [this repository's test workflow](https://
 #### Generating governance proposals
 ```yaml
 - name: Smart Contract Test setup
-    uses: provenance-io/provenance-testing-action@v1.1.1
+    uses: provenance-io/provenance-testing-action@v1.1.2
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
-      provenance_version: "v1.13.0"
+      provenance_version: "v1.14.1"
       test_script: "./scripts/name_test.sh"
       generate_proposals: true
 ```
@@ -46,10 +46,10 @@ For an example of this in use look at [this repository's test workflow](https://
 #### Using provided initial data for Provenance
 ```yaml
 - name: Smart Contract Test setup
-    uses: provenance-io/provenance-testing-action@v1.1.1
+    uses: provenance-io/provenance-testing-action@v1.1.2
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
-      provenance_version: "v1.13.0"
+      provenance_version: "v1.14.1"
       init_data: "./smart_contract_action/test/init_data"
       test_script: "./smart_contract_action/scripts/name_test.sh"
       generate_proposals: true
@@ -57,7 +57,7 @@ For an example of this in use look at [this repository's test workflow](https://
 
 After a successful run, the proposals will be added to an archive named `$GITHUB_JOB_proposals.zip` and attached to the build.
 
-**IMPORTANT**: The json proposals have placeholders for user-specific data (e.g., title, account addresses, code_id). These placeholders must be replaced in order to submit the proposal.
+**IMPORTANT**: The json proposals have placeholders for user-specific data (e.g., title, account addresses, code_id). These placeholders must be replaced in order to submit the proposal. This includes either placing the metadata contents directly into the proposal json (on-chain storage) or storing the metadata on IPFS and updating the `CID` in the proposal json.
 
 ---
 
