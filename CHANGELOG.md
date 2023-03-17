@@ -1,6 +1,7 @@
 # Changelog for Provenance Testing Action
 
 ## Unreleased changes
+* Update to new smart contract governance proposal format ([#7](https://github.com/provenance-io/provenance-testing-action/issues/7))
 
 ---
 
