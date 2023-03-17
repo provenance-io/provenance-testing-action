@@ -64,5 +64,5 @@ if [ "$GENERATE_PROPOSALS" != false ]; then
     $(base64 --wrap=0 $WASM_PATH > wasm_base64)
 
     # generate and sanitize the store code proposal
-    awk 'NR==FNR{a=a""$0"\n";next} {while (match($0, /\$BYTE_CODE/)) {printf "%s", substr($0, 1, RSTART-1) a; $0 = substr($0, RSTART+RLENGTH)}; print}' wasm_base64 scripts/templates/governance/store/draft_proposal.json > scripts/templates/governance/store/draft_proposal.json
+    awk 'NR==FNR{a=a""$0"\n";next} {while (match($0, /\$BYTE_CODE/)) {printf "%s", substr($0, 1, RSTART-1) a; $0 = substr($0, RSTART+RLENGTH)}; print}' wasm_base64 templates/governance/store/draft_proposal.json > templates/governance/store/draft_proposal.json
 fi
