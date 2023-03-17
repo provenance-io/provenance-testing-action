@@ -1,0 +1,13 @@
+{
+    "messages": [
+        {
+            "@type": "/cosmwasm.wasm.v1.MsgMigrateContract",
+            "sender": "$SENDER_BECH32_ADDRESS",
+            "contract": "$CONTRACT_BECH32_ADDRESS",
+            "code_id": "$CODE_ID",
+            "msg": null
+        }
+    ],
+    "metadata": "ipfs://CID",
+    "deposit": "DEPOSIT"
+}

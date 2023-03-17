@@ -1,0 +1,8 @@
+{
+    "title": "$TITLE",
+    "authors": "$AUTHOR",
+    "summary": "$SUMMARY",
+    "details": "$DETAILS",
+    "proposal_forum_url": "$FORUM_URL",
+    "vote_option_context": "$VOTE_OPTION_CONTEXT"
+}

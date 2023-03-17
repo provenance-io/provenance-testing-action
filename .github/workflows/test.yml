@@ -20,12 +20,12 @@ jobs:
     name: Test with provenance release with proposals
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Smart Contract Action
         uses: ./
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          provenance_version: "v1.13.0"
+          provenance_version: "v1.14.1"
           test_script: "./smart-contract-action/test/test.sh"
           generate_proposals: true
           wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
@@ -35,12 +35,12 @@ jobs:
     name: Test with provenance release without proposals
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Smart Contract Action
         uses: ./
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          provenance_version: "v1.13.0"
+          provenance_version: "v1.14.1"
           generate_proposals: true
           wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
 
@@ -49,12 +49,12 @@ jobs:
     name: Test with provenance release without proposals
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Smart Contract Action
         uses: ./
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          provenance_version: "v1.13.0"
+          provenance_version: "v1.14.1"
           init_data: "./smart-contract-action/test/init_data"
           generate_proposals: true
           wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
