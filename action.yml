@@ -45,4 +45,4 @@ runs:
       with:
         name: ${{ github.job }}_proposals.zip
         path: |
-          smart-contract-action/scripts/templates/governance
+          smart-contract-action/scripts/templates/governance/
