@@ -1,11 +1,15 @@
 # Changelog for Provenance Testing Action
 
 ## Unreleased changes
+
+---
+
+## [v1.1.2](https://github.com/provenance-io/provenance-testing-action/releases/tag/v1.1.2)
 * Update to new smart contract governance proposal format ([#7](https://github.com/provenance-io/provenance-testing-action/issues/7))
 
 ---
 
-## [v1.1.0](https://github.com/provenance-io/provenance-testing-action/releases/tag/v1.1.0)
+## [v1.1.1](https://github.com/provenance-io/provenance-testing-action/releases/tag/v1.1.1)
 * Allow initial data to be used for starting provenance ([#5](https://github.com/provenance-io/provenance-testing-action/issues/5))
 
 ---
