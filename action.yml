@@ -45,6 +45,4 @@ runs:
       with:
         name: ${{ github.job }}_proposals.zip
         path: |
-          wasm-store-proposal.json
-          instantiate-contract-proposal.json
-          migrate-contract-proposal.json
+          smart-contract-action/scripts/templates/governance
