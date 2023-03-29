@@ -1,7 +1,7 @@
 name: Test
 on:
   workflow_run:
-    workflows: ["Smart Contract Action Docker Build and Push"]
+    workflows: [Smart Contract Action Docker Build and Push]
     types:
       - completed
 jobs:
