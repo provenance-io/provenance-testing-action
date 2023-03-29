@@ -29,7 +29,7 @@ jobs:
         id: prep
         run: |
           DOCKER_IMAGE=provenanceio/smart-contract-action
-          VERSION=noop
+          VERSION=$GITHUB_SHA
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             VERSION=${GITHUB_REF#refs/tags/}
           elif [[ $GITHUB_REF == refs/heads/* ]]; then
@@ -68,5 +68,5 @@ jobs:
             VERSION=${{ steps.prep.outputs.version }}
           platforms: linux/amd64
           file: smart-contract-action/Dockerfile
-          push: ${{ github.event_name != 'pull_request' }}
+          push: true
           tags: ${{ steps.prep.outputs.tags }}
