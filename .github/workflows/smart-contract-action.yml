@@ -82,7 +82,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           provenance_version: "v1.14.1"
-          smart_contract_action_version: ${{ jobs.docker.outputs.smart_contract_action_version }}
+          smart_contract_action_version: ${{ needs.docker.outputs.smart_contract_action_version }}
           test_script: "./smart-contract-action/test/test.sh"
           generate_proposals: true
           wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
@@ -97,7 +97,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           provenance_version: "v1.14.1"
-          smart_contract_action_version: ${{ jobs.docker.outputs.smart_contract_action_version }}
+          smart_contract_action_version: ${{ needs.docker.outputs.smart_contract_action_version }}
           generate_proposals: true
           wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
 
@@ -111,7 +111,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           provenance_version: "v1.14.1"
-          smart_contract_action_version: ${{ jobs.docker.outputs.smart_contract_action_version }}
+          smart_contract_action_version: ${{ needs.docker.outputs.smart_contract_action_version }}
           init_data: "./smart-contract-action/test/init_data"
           generate_proposals: true
           wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
