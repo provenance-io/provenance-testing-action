@@ -6,8 +6,12 @@ inputs:
     description: 'Github token from the workflow'
     required: true
   provenance_version:
-    description: 'Version of Provenance to test, either a release or a branch'
+    description: 'Version of Provenance to perform test. Either a release or a branch'
     required: true
+  smart-contract-action-version:
+    description: 'Version of Smart Contract Action to perform test'
+    required: false
+    default: latest
   init_data:
     description: 'Initial data directory to be used for starting Provenance'
     required: false
@@ -34,12 +38,13 @@ runs:
         name: linux-zip
     - name: run smart contract action
       id: smart-contract-action
-      uses: ./smart-contract-action
+      uses: docker://provenanceio/smart-contract-action:${{ smart-contract-action-version }}
       with:
-        init_data: ${{ inputs.init_data }}
-        test_script: ${{ inputs.test_script }}
-        generate_proposals: ${{ inputs.generate_proposals }}
-        wasm_path: ${{ inputs.wasm_path }}
+        args: >-
+          ${{ inputs.init_data }}
+          ${{ inputs.test_script }}
+          ${{ inputs.generate_proposals }}
+          ${{ inputs.wasm_path }}
     - name: attach artifacts
       uses: actions/upload-artifact@v3
       with:
