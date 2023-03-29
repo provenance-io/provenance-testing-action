@@ -1,4 +1,4 @@
-name: Smart Contract Action Docker Build and Push
+name: Smart Contract Action Build Push Test
 # Build & Push builds the simapp docker image on every push to master
 # and pushes the image to https://hub.docker.com/u/provenanceio
 on:
@@ -21,6 +21,8 @@ concurrency:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    outputs:
+      smart_contract_action_version: ${{ steps.prep.outputs.version }}
     steps:
       - uses: actions/checkout@v3
         with:
@@ -69,3 +71,47 @@ jobs:
           file: smart-contract-action/Dockerfile
           push: true
           tags: ${{ steps.prep.outputs.tags }}
+
+  test_with_provenance_release:
+    needs: docker
+    runs-on: ubuntu-latest
+    name: Test with provenance release with proposals
+    steps:
+      - name: Smart Contract Action
+        uses: ./
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          provenance_version: "v1.14.1"
+          smart_contract_action_version: ${{ jobs.docker.outputs.smart_contract_action_version }}
+          test_script: "./smart-contract-action/test/test.sh"
+          generate_proposals: true
+          wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
+
+  test_with_provenance_release_no_script:
+    needs: docker
+    runs-on: ubuntu-latest
+    name: Test with provenance release without proposals
+    steps:
+      - name: Smart Contract Action
+        uses: ./
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          provenance_version: "v1.14.1"
+          smart_contract_action_version: ${{ jobs.docker.outputs.smart_contract_action_version }}
+          generate_proposals: true
+          wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"
+
+  test_with_init_data:
+    needs: docker
+    runs-on: ubuntu-latest
+    name: Test with provenance release without proposals
+    steps:
+      - name: Smart Contract Action
+        uses: ./
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          provenance_version: "v1.14.1"
+          smart_contract_action_version: ${{ jobs.docker.outputs.smart_contract_action_version }}
+          init_data: "./smart-contract-action/test/init_data"
+          generate_proposals: true
+          wasm_path: "./smart-contract-action/test/provwasm_tutorial.wasm"

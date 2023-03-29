@@ -8,7 +8,7 @@ inputs:
   provenance_version:
     description: 'Version of Provenance to perform test. Either a release or a branch'
     required: true
-  smart-contract-action-version:
+  smart_contract_action_version:
     description: 'Version of Smart Contract Action to perform test'
     required: false
     default: latest
@@ -38,7 +38,7 @@ runs:
         name: linux-zip
     - name: run smart contract action
       id: smart-contract-action
-      uses: docker://provenanceio/smart-contract-action:${{ smart-contract-action-version }}
+      uses: docker://provenanceio/smart-contract-action:${{ smart_contract_action_version }}
       with:
         args: >-
           ${{ inputs.init_data }}
