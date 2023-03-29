@@ -3,6 +3,8 @@ name: Smart Contract Action Docker Build and Push
 # and pushes the image to https://hub.docker.com/u/provenanceio
 on:
   pull_request:
+    branches:    
+      - main
   push:
     branches:
       - main
