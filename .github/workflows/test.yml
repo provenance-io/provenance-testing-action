@@ -4,6 +4,8 @@ on:
     workflows: [Smart Contract Action Docker Build and Push]
     types:
       - completed
+    branches:
+      - '*'
 jobs:
   #  This action cleans up previously running instances of a workflow on the same branch. This accomplishes
   #  the task of automatically cancelling CI runs on pushes to the same branch, which is a common feature in
