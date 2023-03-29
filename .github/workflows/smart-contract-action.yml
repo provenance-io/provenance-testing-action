@@ -77,6 +77,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Test with provenance release with proposals
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Smart Contract Action
         uses: ./
         with:
@@ -92,6 +95,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Test with provenance release without proposals
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Smart Contract Action
         uses: ./
         with:
@@ -106,6 +112,9 @@ jobs:
     runs-on: ubuntu-latest
     name: Test with provenance release without proposals
     steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Smart Contract Action
         uses: ./
         with:
