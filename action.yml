@@ -38,6 +38,7 @@ runs:
         name: linux-zip
     - name: run smart contract action
       id: smart-contract-action
+      shell: bash
       run: |
         docker pull provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }}
         docker run provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }} ${{ inputs.init_data } ${{ inputs.test_script }} ${{ inputs.generate_proposals }} ${{ inputs.wasm_path }}
