@@ -42,6 +42,7 @@ runs:
       env:
         IMAGE: "provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }}"
       run: |
+        ls -la
         docker pull ${{ env.IMAGE }}
         docker run ${{ env.IMAGE }}
     - name: attach artifacts
