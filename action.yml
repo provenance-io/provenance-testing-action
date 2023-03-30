@@ -42,9 +42,8 @@ runs:
       env:
         IMAGE: "provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }}"
       run: |
-        ls -la
         docker pull ${{ env.IMAGE }}
-        docker run ${{ env.IMAGE }}
+        docker run -v .:/:Z ${{ env.IMAGE }}
     - name: attach artifacts
       uses: actions/upload-artifact@v3
       with:
