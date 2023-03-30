@@ -38,13 +38,9 @@ runs:
         name: linux-zip
     - name: run smart contract action
       id: smart-contract-action
-      uses: docker://provenanceio/smart-contract-action:latest
-      with:
-        args: >-
-          ${{ inputs.init_data }}
-          ${{ inputs.test_script }}
-          ${{ inputs.generate_proposals }}
-          ${{ inputs.wasm_path }}
+      run: |
+        docker pull provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }}
+        docker run provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }} ${{ inputs.init_data } ${{ inputs.test_script }} ${{ inputs.generate_proposals }} ${{ inputs.wasm_path }}
     - name: attach artifacts
       uses: actions/upload-artifact@v3
       with:
