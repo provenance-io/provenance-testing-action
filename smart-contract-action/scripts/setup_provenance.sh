@@ -7,6 +7,7 @@ WASM_PATH=$4
 
 # this will create a folder with both provenance and libwasm
 cd /scratch
+ls -la
 unzip "provenance-linux-amd64-*.zip"
 
 mkdir ./build

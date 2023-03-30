@@ -41,11 +41,16 @@ runs:
       shell: bash
       env:
         IMAGE: "provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }}"
+        INIT_DATA: "${{ inputs.init_data != null && inputs.init_data || false }}"
+        TEST_SCRIPT: "${{ inputs.test_script != null && inputs.test_script || false }}"
+        GENERATE_PROPOSALS: "${{ inputs.generate_proposals }}"
+        WASM_PATH: "${{ inputs.wasm_path }}"
       run: |
+        pwd
+        ls -la
         docker pull ${{ env.IMAGE }}
-        echo "workspace is:"
-        echo "${{ env.GITHUB_WORKSPACE }}"
-        docker run -v ${{ env.GITHUB_WORKSPACE }}:/scratch:Z ${{ env.IMAGE }}
+        echo $GITHUB_WORKSPACE
+        docker run -v $GITHUB_WORKSPACE:/scratch:Z ${{ env.IMAGE }} ${{ env.INIT_DATA }} ${{ env.TEST_SCRIPT }} ${{ env.GENERATE_PROPOSALS }} ${{ env.WASM_PATH }} 
     - name: attach artifacts
       uses: actions/upload-artifact@v3
       with:
