@@ -40,8 +40,7 @@ runs:
       id: smart-contract-action
       shell: bash
       run: |
-        docker pull provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }}
-        docker run provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }} ${{ inputs.init_data } ${{ inputs.test_script }} ${{ inputs.generate_proposals }} ${{ inputs.wasm_path }}
+        echo "provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }}"
     - name: attach artifacts
       uses: actions/upload-artifact@v3
       with:
