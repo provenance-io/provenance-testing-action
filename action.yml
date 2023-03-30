@@ -38,7 +38,7 @@ runs:
         name: linux-zip
     - name: run smart contract action
       id: smart-contract-action
-      uses: docker://provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }}
+      uses: docker://provenanceio/smart-contract-action:latest
       with:
         args: >-
           ${{ inputs.init_data }}
