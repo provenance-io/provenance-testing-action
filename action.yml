@@ -46,14 +46,11 @@ runs:
         GENERATE_PROPOSALS: "${{ inputs.generate_proposals }}"
         WASM_PATH: "${{ inputs.wasm_path }}"
       run: |
-        pwd
-        ls -la
         docker pull ${{ env.IMAGE }}
-        echo $GITHUB_WORKSPACE
-        docker run -v $GITHUB_WORKSPACE:/scratch:Z ${{ env.IMAGE }} ${{ env.INIT_DATA }} ${{ env.TEST_SCRIPT }} ${{ env.GENERATE_PROPOSALS }} ${{ env.WASM_PATH }} 
+        docker run -v $GITHUB_WORKSPACE:/scratch:Z ${{ env.IMAGE }} ${{ env.INIT_DATA }} ${{ env.TEST_SCRIPT }} ${{ env.GENERATE_PROPOSALS }} ${{ env.WASM_PATH }}
     - name: attach artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ github.job }}_proposals.zip
+        name: ${{ github.job }}_proposals
         path: |
           smart-contract-action/scripts/templates/governance/
