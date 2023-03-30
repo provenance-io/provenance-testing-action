@@ -39,8 +39,11 @@ runs:
     - name: run smart contract action
       id: smart-contract-action
       shell: bash
+      env:
+        IMAGE: "provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }}"
       run: |
-        echo "provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }}"
+        docker pull ${{ env.IMAGE }}
+        docker run ${{ env.IMAGE }}
     - name: attach artifacts
       uses: actions/upload-artifact@v3
       with:
