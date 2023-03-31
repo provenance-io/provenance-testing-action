@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 # This script is a sanity check that stores the tutorial smart contract
-PROV_CMD="./bin/provenanced"
+PROV_CMD="provenanced"
 
 # Run the contract
 "$PROV_CMD" tx wasm store ./smart-contract-action/test/provwasm_tutorial.wasm \

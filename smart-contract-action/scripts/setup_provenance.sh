@@ -7,11 +7,11 @@ WASM_PATH=$4
 
 # this will create a folder with both provenance and libwasm
 cd /scratch
-unzip "provenance-linux-amd64-*.zip"
+unzip "provenance-linux-amd64-*.zip" -d /usr
 
 mkdir ./build
 
-PROV_CMD="./bin/provenanced"
+PROV_CMD="provenanced"
 PIO_HOME="./build"
 export PIO_HOME
 export PROV_CMD
