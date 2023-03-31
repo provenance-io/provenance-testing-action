@@ -31,8 +31,7 @@ jobs:
         id: prep
         run: |
           DOCKER_IMAGE=provenanceio/smart-contract-action
-          VERSION=$GITHUB_SHA
-          echo "github sha = $GITHUB_SHA"
+          VERSION=${{ github.event.pull_request.head.sha }}
           if [[ $GITHUB_REF == refs/tags/* ]]; then
             VERSION=${GITHUB_REF#refs/tags/}
           elif [[ $GITHUB_REF == refs/heads/* ]]; then
