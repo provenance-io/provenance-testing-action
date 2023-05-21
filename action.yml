@@ -34,7 +34,7 @@ runs:
         branch: ${{ inputs.provenance_version }}
         repo: provenance-io/provenance
         workflow: release.yml
-        workflow_conclusion: completed
+        workflow_conclusion: ""
         name: linux-zip
     - name: run smart contract action
       id: smart-contract-action
