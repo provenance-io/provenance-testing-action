@@ -6,11 +6,12 @@ GENERATE_PROPOSALS=$3
 WASM_PATH=$4
 
 # this will create a folder with both provenance and libwasm
-unzip "provenance-linux-amd64-*.zip"
+cd /scratch
+unzip "provenance-linux-amd64-*.zip" -d /usr
 
 mkdir ./build
 
-PROV_CMD="./bin/provenanced"
+PROV_CMD="provenanced"
 PIO_HOME="./build"
 export PIO_HOME
 export PROV_CMD
@@ -64,6 +65,6 @@ if [ "$GENERATE_PROPOSALS" != false ]; then
     $(base64 --wrap=0 $WASM_PATH > wasm_base64)
 
     # generate and sanitize the store code proposal
-    awk 'NR==FNR{a=a""$0"\n";next} {while (match($0, /\$BYTE_CODE/)) {printf "%s", substr($0, 1, RSTART-1) a; $0 = substr($0, RSTART+RLENGTH)}; print}' wasm_base64 smart-contract-action/scripts/templates/governance/store/draft_proposal.json > temp_store_proposal
-    mv temp_store_proposal smart-contract-action/scripts/templates/governance/store/draft_proposal.json
+    awk 'NR==FNR{a=a""$0"\n";next} {while (match($0, /\$BYTE_CODE/)) {printf "%s", substr($0, 1, RSTART-1) a; $0 = substr($0, RSTART+RLENGTH)}; print}' wasm_base64 /scripts/templates/governance/store/draft_proposal.json > temp_store_proposal
+    mv temp_store_proposal /scripts/templates/governance/store/draft_proposal.json
 fi

@@ -6,8 +6,12 @@ inputs:
     description: 'Github token from the workflow'
     required: true
   provenance_version:
-    description: 'Version of Provenance to test, either a release or a branch'
+    description: 'Version of Provenance to perform test. Either a release or a branch'
     required: true
+  smart_contract_action_version:
+    description: 'Version of Smart Contract Action to perform test'
+    required: false
+    default: latest
   init_data:
     description: 'Initial data directory to be used for starting Provenance'
     required: false
@@ -30,19 +34,23 @@ runs:
         branch: ${{ inputs.provenance_version }}
         repo: provenance-io/provenance
         workflow: release.yml
-        workflow_conclusion: success
+        workflow_conclusion: ""
         name: linux-zip
     - name: run smart contract action
       id: smart-contract-action
-      uses: ./smart-contract-action
-      with:
-        init_data: ${{ inputs.init_data }}
-        test_script: ${{ inputs.test_script }}
-        generate_proposals: ${{ inputs.generate_proposals }}
-        wasm_path: ${{ inputs.wasm_path }}
+      shell: bash
+      env:
+        IMAGE: "provenanceio/smart-contract-action:${{ inputs.smart_contract_action_version }}"
+        INIT_DATA: "${{ inputs.init_data != null && inputs.init_data || false }}"
+        TEST_SCRIPT: "${{ inputs.test_script != null && inputs.test_script || false }}"
+        GENERATE_PROPOSALS: "${{ inputs.generate_proposals }}"
+        WASM_PATH: "${{ inputs.wasm_path }}"
+      run: |
+        docker pull ${{ env.IMAGE }}
+        docker run -v $GITHUB_WORKSPACE:/scratch:Z ${{ env.IMAGE }} ${{ env.INIT_DATA }} ${{ env.TEST_SCRIPT }} ${{ env.GENERATE_PROPOSALS }} ${{ env.WASM_PATH }}
     - name: attach artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ github.job }}_proposals.zip
+        name: ${{ github.job }}_proposals
         path: |
           smart-contract-action/scripts/templates/governance/
