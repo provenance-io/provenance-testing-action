@@ -35,10 +35,10 @@ For an example of this in use look at [this repository's test workflow](https://
 #### Using provided initial data for Provenance
 ```yaml
 - name: Smart Contract Test setup
-    uses: provenance-io/provenance-testing-action@v1.1.2
+    uses: provenance-io/provenance-testing-action@v1.2.0
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
-      provenance_version: "v1.14.1"
+      provenance_version: "v1.16.0"
       init_data: "./smart_contract_action/test/init_data"
       test_script: "./smart_contract_action/scripts/name_test.sh"
 ```
