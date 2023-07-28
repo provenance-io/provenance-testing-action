@@ -18,6 +18,7 @@ For an example of this in use look at [this repository's test workflow](https://
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           provenance_version: "v1.16.0"
+          smart_contract_action_version: "latest"
           test_script: "./scripts/name_test.sh"
     ```
 
@@ -29,6 +30,7 @@ For an example of this in use look at [this repository's test workflow](https://
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           provenance_version: "issue/new-feature"
+          smart_contract_action_version: "latest"
           test_script: "./scripts/name_test.sh"
     ```
 
@@ -39,6 +41,7 @@ For an example of this in use look at [this repository's test workflow](https://
     with:
       github_token: ${{ secrets.GITHUB_TOKEN }}
       provenance_version: "v1.16.0"
+      smart_contract_action_version: "latest"
       init_data: "./smart_contract_action/test/init_data"
       test_script: "./smart_contract_action/scripts/name_test.sh"
 ```
@@ -47,9 +50,10 @@ For an example of this in use look at [this repository's test workflow](https://
 
 ### Configuration
 
-| Key                  |  Type   |   Required   | Description                                                                                                                                                                                              |
-|----------------------|:-------:|:------------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `github_token`       |  token  | **Required** | set to `${{ secrets.GITHUB_TOKEN }}`                                                                                                                                                                     |
-| `provenance_version` | string  | **Required** | Version of Provenance to test, either a release or a branch                                                                                                                                              |
-| `init_data`          | string  |  *Optional*  | The directory that contains the initial seed data for Provenance. It should contain the `config`, `data`, and `keyring-test` directories. Example: [init_data](smart-contract-action%2Ftest%2Finit_data) |
-| `test_script`        | string  |  *Optional*  | Script used to run tests after provenance has been setup and is running                                                                                                                                  |
+| Key                             |  Type  |   Required   | Description                                                                                                                                                                                              |
+|---------------------------------|:------:|:------------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `github_token`                  | token  | **Required** | set to `${{ secrets.GITHUB_TOKEN }}`                                                                                                                                                                     |
+| `provenance_version`            | string | **Required** | Version of Provenance to test, either a release or a branch                                                                                                                                              |
+| `smart_contract_action_version` | string | **Required** | Version of the (Smart Contract Test action docker image)[https://hub.docker.com/r/provenanceio/smart-contract-action/tags]                                                                               |
+| `init_data`                     | string |  *Optional*  | The directory that contains the initial seed data for Provenance. It should contain the `config`, `data`, and `keyring-test` directories. Example: [init_data](smart-contract-action%2Ftest%2Finit_data) |
+| `test_script`                   | string |  *Optional*  | Script used to run tests after provenance has been setup and is running                                                                                                                                  |
