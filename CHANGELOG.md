@@ -2,6 +2,9 @@
 
 ## Unreleased changes
 
+## [v1.2.0](https://github.com/provenance-io/provenance-testing-action/releases/tag/v1.2.0)
+* fix `Error: Can't find...` error by moving to docker image ([#9](https://github.com/provenance-io/provenance-testing-action/issues/9))
+* remove proposal generation
 ---
 
 ## [v1.1.2](https://github.com/provenance-io/provenance-testing-action/releases/tag/v1.1.2)
