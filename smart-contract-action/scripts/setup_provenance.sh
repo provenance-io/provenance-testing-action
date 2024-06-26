@@ -13,8 +13,12 @@ mkdir ./build
 
 PROV_CMD="provenanced"
 PIO_HOME="./build"
+arg_chain_id="--chain-id=testing"
+arg_keyring="--keyring-backend test"
 export PIO_HOME
 export PROV_CMD
+export arg_chain_id
+export arg_keyring
 
 if [ "$INIT_DATA" != false ]; then
     # place the initial config data in the default location
@@ -24,23 +28,22 @@ if [ "$INIT_DATA" != false ]; then
 fi
 
 if [ ! -d "$PIO_HOME/config" ]; then
-    "$PROV_CMD" -t init --chain-id=testing testing
-    "$PROV_CMD" -t keys add validator --keyring-backend test
-    "$PROV_CMD" -t add-genesis-root-name validator pio --keyring-backend test
-    "$PROV_CMD" -t add-genesis-root-name validator pb --restrict=false \
-        --keyring-backend test
-    "$PROV_CMD" -t add-genesis-root-name validator io --restrict \
-        --keyring-backend test
-    "$PROV_CMD" -t add-genesis-root-name validator provenance \
-        --keyring-backend test
-    "$PROV_CMD" -t add-genesis-account validator 100000000000000000000nhash \
-        --keyring-backend test
-    "$PROV_CMD" -t gentx validator 1000000000000000nhash \
-        --keyring-backend test --chain-id=testing
-    "$PROV_CMD" -t add-genesis-marker 100000000000000000000nhash --manager \
-        validator --access mint,burn,admin,withdraw,deposit \
-        --activate --keyring-backend test
-    "$PROV_CMD" -t collect-gentxs
+    "$PROV_CMD" -t init testing --chain-id=testing $arg_chain_id
+    "$PROV_CMD" -t keys add validator $arg_keyring
+    "$PROV_CMD" -t genesis add-root-name validator pio $arg_keyring
+    "$PROV_CMD" -t genesis add-root-name validator pb --restrict=false $arg_keyring
+    "$PROV_CMD" -t genesis add-root-name validator io --restrict $arg_keyring
+    "$PROV_CMD" -t genesis add-root-name validator provenance $arg_keyring
+    "$PROV_CMD" -t genesis add-account validator 100000000000000000000nhash $arg_keyring
+    "$PROV_CMD" -t genesis gentx validator 1000000000000000nhash $arg_chain_id $arg_keyring
+    "$PROV_CMD" -t genesis add-marker 100000000000000000000nhash \
+        --manager validator \
+        --access mint,burn,admin,withdraw,deposit \
+        $arg_keyring \
+        --activate
+    "$PROV_CMD" -t genesis add-default-market --denom nhash
+    "$PROV_CMD" -t genesis collect-gentxs
+    "$PROV_CMD" -t config set minimum-gas-prices "1905nhash"
 fi
 
 nohup "$PROV_CMD" -t start &>/dev/null &
