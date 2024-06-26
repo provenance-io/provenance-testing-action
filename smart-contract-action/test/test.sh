@@ -11,6 +11,5 @@ PROV_CMD="provenanced"
     --gas=auto \
     --gas-prices="1905nhash" \
 	  --gas-adjustment=1.5 \
-    --broadcast-mode=block \
     --yes \
-    -t
+    -t | "$PROV_CMD" q wait-tx
