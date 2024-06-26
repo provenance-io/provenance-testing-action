@@ -1,6 +1,7 @@
 # Changelog for Provenance Testing Action
 
 ## Unreleased changes
+* update to provenance v1.19.0 ([#12](https://github.com/provenance-io/provenance-testing-action/issues/12))
 
 ## [v1.2.0](https://github.com/provenance-io/provenance-testing-action/releases/tag/v1.2.0)
 * fix `Error: Can't find...` error by moving to docker image ([#9](https://github.com/provenance-io/provenance-testing-action/issues/9))
