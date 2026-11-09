@@ -12,4 +12,4 @@ PROV_CMD="provenanced"
     --gas-prices="1905nhash" \
 	  --gas-adjustment=1.5 \
     --yes \
-    -t
+    -t | "$PROV_CMD" q wait-tx
