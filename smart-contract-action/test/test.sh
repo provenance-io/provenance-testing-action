@@ -9,7 +9,7 @@ PROV_CMD="provenanced"
     --keyring-backend="test" \
     --chain-id="testing" \
     --gas=auto \
-    --gas-prices="1905nhash" \
+    --gas-prices="1nhash" \
 	  --gas-adjustment=1.5 \
     --yes \
     -t | "$PROV_CMD" q wait-tx
