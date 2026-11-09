@@ -1,5 +1,5 @@
 # Docker file for testing provwasm
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 # install apt-utils first
 RUN apt-get update -y
 RUN apt-get install -y apt-utils
@@ -9,8 +9,6 @@ RUN apt-get upgrade -y && \
     rm -rf /var/lib/apt/lists/
 
 COPY --chown=0:0 ./scripts /scripts
-
-RUN ln -s /usr/lib/x86_64-linux-gnu/libleveldb.so /usr/lib/x86_64-linux-gnu/libleveldb.so.1
 
 # Initialize provenance to run with the default node configuration
 ENTRYPOINT ["/scripts/setup_provenance.sh"]
