@@ -46,18 +46,18 @@ if [ ! -d "$PIO_HOME/config" ]; then
     "$PROV_CMD" -t config set minimum-gas-prices "1905nhash"
 fi
 
-nohup "$PROV_CMD" -t start
+nohup "$PROV_CMD" -t start &>/dev/null &
 
-# echo "Sleeping for provenance to start up"
-# sleep 5s
+echo "Sleeping for provenance to start up"
+sleep 5s
 
-# "$PROV_CMD" -t q marker holding nhash
+"$PROV_CMD" -t q marker holding nhash
 
-# if [ "$TEST_SCRIPT" != false ]; then
-#     # execute the script test that was passed in as an argument
-#     echo "Executing test..."
+if [ "$TEST_SCRIPT" != false ]; then
+    # execute the script test that was passed in as an argument
+    echo "Executing test..."
 
-#     $TEST_SCRIPT
+    $TEST_SCRIPT
 
-#     echo "Test complete"
-# fi
+    echo "Test complete"
+fi
