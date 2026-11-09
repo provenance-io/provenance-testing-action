@@ -1,12 +1,14 @@
 {
   "app_name": "",
   "app_version": "",
-  "genesis_time": "2024-06-26T01:02:03.381433039Z",
+  "genesis_time": "2026-11-09T21:08:40.591162Z",
   "chain_id": "testing",
   "initial_height": 1,
   "app_hash": null,
   "app_state": {
+    "06-solomachine": null,
     "07-tendermint": null,
+    "asset": null,
     "attribute": {
       "params": {
         "max_value_length": 10000
@@ -24,7 +26,7 @@
       "accounts": [
         {
           "@type": "/cosmos.auth.v1beta1.BaseAccount",
-          "address": "tp1vj5zw7zfdpneh4p6fd8pxccjd6ukau5xdtpqah",
+          "address": "tp199z2yvyvtyasm2dfuh76fsy75ulv0xl77c4xtn",
           "pub_key": null,
           "account_number": "0",
           "sequence": "0"
@@ -40,7 +42,7 @@
           "manager": "",
           "access_control": [
             {
-              "address": "tp1vj5zw7zfdpneh4p6fd8pxccjd6ukau5xdtpqah",
+              "address": "tp199z2yvyvtyasm2dfuh76fsy75ulv0xl77c4xtn",
               "permissions": [
                 "ACCESS_MINT",
                 "ACCESS_BURN",
@@ -57,7 +59,8 @@
           "supply_fixed": false,
           "allow_governance_control": false,
           "allow_forced_transfer": false,
-          "required_attributes": []
+          "required_attributes": [],
+          "require_deposit_access": false
         }
       ]
     },
@@ -71,7 +74,7 @@
       },
       "balances": [
         {
-          "address": "tp1vj5zw7zfdpneh4p6fd8pxccjd6ukau5xdtpqah",
+          "address": "tp199z2yvyvtyasm2dfuh76fsy75ulv0xl77c4xtn",
           "coins": [
             {
               "denom": "nhash",
@@ -88,10 +91,6 @@
       ],
       "denom_metadata": [],
       "send_enabled": []
-    },
-    "capability": {
-      "index": "1",
-      "owners": []
     },
     "circuit": {
       "account_permissions": [],
@@ -204,7 +203,7 @@
           "allow_user_settlement": true,
           "access_grants": [
             {
-              "address": "tp1vj5zw7zfdpneh4p6fd8pxccjd6ukau5xdtpqah",
+              "address": "tp199z2yvyvtyasm2dfuh76fsy75ulv0xl77c4xtn",
               "permissions": [
                 "PERMISSION_SETTLE",
                 "PERMISSION_SET_IDS",
@@ -239,6 +238,63 @@
     "feegrant": {
       "allowances": []
     },
+    "flatfees": {
+      "params": {
+        "default_cost": {
+          "denom": "musd",
+          "amount": "150"
+        },
+        "conversion_factor": {
+          "definition_amount": {
+            "denom": "musd",
+            "amount": "25"
+          },
+          "converted_amount": {
+            "denom": "nhash",
+            "amount": "1000000000"
+          }
+        },
+        "oracle_addresses": []
+      },
+      "msg_fees": [
+        {
+          "msg_type_url": "/provenance.name.v1.MsgBindNameRequest",
+          "cost": [
+            {
+              "denom": "musd",
+              "amount": "250"
+            }
+          ]
+        },
+        {
+          "msg_type_url": "/provenance.marker.v1.MsgAddMarkerRequest",
+          "cost": [
+            {
+              "denom": "musd",
+              "amount": "2500"
+            }
+          ]
+        },
+        {
+          "msg_type_url": "/provenance.attribute.v1.MsgAddAttributeRequest",
+          "cost": [
+            {
+              "denom": "musd",
+              "amount": "250"
+            }
+          ]
+        },
+        {
+          "msg_type_url": "/provenance.metadata.v1.MsgWriteScopeRequest",
+          "cost": [
+            {
+              "denom": "musd",
+              "amount": "1000"
+            }
+          ]
+        }
+      ]
+    },
     "genutil": {
       "gen_txs": [
         {
@@ -260,10 +316,10 @@
                 },
                 "min_self_delegation": "1",
                 "delegator_address": "",
-                "validator_address": "tpvaloper1vj5zw7zfdpneh4p6fd8pxccjd6ukau5xjzu5gj",
+                "validator_address": "tpvaloper199z2yvyvtyasm2dfuh76fsy75ulv0xl7p3gj7k",
                 "pubkey": {
                   "@type": "/cosmos.crypto.ed25519.PubKey",
-                  "key": "iha5jCihnULdjtULXtRHlaOgQE83D1EXfFXf4n4uejE="
+                  "key": "6GvihQVv5vaMCZMTsFBfdxEeqY+irf2XXKgcvgNw69Y="
                 },
                 "value": {
                   "denom": "nhash",
@@ -271,8 +327,10 @@
                 }
               }
             ],
-            "memo": "cbb8fa3d39a8f56695fab9b19fe15e75be07c138@10.230.1.142:26656",
+            "memo": "d496aba5bfa36a6d207bf917d063691743744f73@192.168.1.37:26656",
             "timeout_height": "0",
+            "unordered": false,
+            "timeout_timestamp": null,
             "extension_options": [],
             "non_critical_extension_options": []
           },
@@ -281,7 +339,7 @@
               {
                 "public_key": {
                   "@type": "/cosmos.crypto.secp256k1.PubKey",
-                  "key": "A4UCWuW8ftS1lQUZkHe3Du5uBF4f8T0VV+23FdB7LYyx"
+                  "key": "A446qqQsX4m0m5J50oNrkIWJHNFdVM46fBv792cvbWJS"
                 },
                 "mode_info": {
                   "single": {
@@ -300,7 +358,7 @@
             "tip": null
           },
           "signatures": [
-            "Q944M1mZyx7StMWvQnacz9jbq90PMh37RrLhagtopTZcyAiRK0UkhdTWlKVMaoScZ6XRZO18QFoTQLPhFE57Wg=="
+            "u8wnJ0hb7d3jhml6f77N5EHW9YNMk+SsSUGyvrdnqwMVIxWh25FKCu4kdvRMuVtO4BQm5inBOtdctnHyUnZV2w=="
           ]
         }
       ]
@@ -385,16 +443,17 @@
         "send_sequences": [],
         "recv_sequences": [],
         "ack_sequences": [],
-        "next_channel_sequence": "0",
-        "params": {
-          "upgrade_timeout": {
-            "height": {
-              "revision_number": "0",
-              "revision_height": "0"
-            },
-            "timestamp": "600000000000"
-          }
-        }
+        "next_channel_sequence": "0"
+      },
+      "client_v2_genesis": {
+        "counterparty_infos": []
+      },
+      "channel_v2_genesis": {
+        "acknowledgements": [],
+        "commitments": [],
+        "receipts": [],
+        "async_packets": [],
+        "send_sequences": []
       }
     },
     "ibchooks": {
@@ -423,12 +482,14 @@
         }
       }
     },
-    "interchainquery": {
-      "host_port": "icqhost",
-      "params": {
-        "host_enabled": true,
-        "allow_queries": []
-      }
+    "ledger": {
+      "ledger_classes": [],
+      "ledger_class_entry_types": [],
+      "ledger_class_status_types": [],
+      "ledger_class_bucket_types": [],
+      "ledgers": [],
+      "ledger_entries": [],
+      "settlement_instructions": []
     },
     "marker": {
       "params": {
@@ -469,54 +530,7 @@
         "blocks_per_year": "6311520"
       }
     },
-    "msgfees": {
-      "params": {
-        "floor_gas_price": {
-          "denom": "nhash",
-          "amount": "1905"
-        },
-        "nhash_per_usd_mil": "25000000",
-        "conversion_fee_denom": "nhash"
-      },
-      "msg_fees": [
-        {
-          "msg_type_url": "/provenance.name.v1.MsgBindNameRequest",
-          "additional_fee": {
-            "denom": "nhash",
-            "amount": "10000000000"
-          },
-          "recipient": "",
-          "recipient_basis_points": 5000
-        },
-        {
-          "msg_type_url": "/provenance.marker.v1.MsgAddMarkerRequest",
-          "additional_fee": {
-            "denom": "nhash",
-            "amount": "100000000000"
-          },
-          "recipient": "",
-          "recipient_basis_points": 5000
-        },
-        {
-          "msg_type_url": "/provenance.attribute.v1.MsgAddAttributeRequest",
-          "additional_fee": {
-            "denom": "nhash",
-            "amount": "10000000000"
-          },
-          "recipient": "",
-          "recipient_basis_points": 5000
-        },
-        {
-          "msg_type_url": "/provenance.metadata.v1.MsgWriteScopeRequest",
-          "additional_fee": {
-            "denom": "nhash",
-            "amount": "10000000000"
-          },
-          "recipient": "",
-          "recipient_basis_points": 5000
-        }
-      ]
-    },
+    "msgfees": null,
     "name": {
       "params": {
         "max_segment_length": 32,
@@ -527,40 +541,37 @@
       "bindings": [
         {
           "name": "pio",
-          "address": "tp1vj5zw7zfdpneh4p6fd8pxccjd6ukau5xdtpqah",
+          "address": "tp199z2yvyvtyasm2dfuh76fsy75ulv0xl77c4xtn",
           "restricted": true
         },
         {
           "name": "pb",
-          "address": "tp1vj5zw7zfdpneh4p6fd8pxccjd6ukau5xdtpqah",
+          "address": "tp199z2yvyvtyasm2dfuh76fsy75ulv0xl77c4xtn",
           "restricted": false
         },
         {
           "name": "io",
-          "address": "tp1vj5zw7zfdpneh4p6fd8pxccjd6ukau5xdtpqah",
+          "address": "tp199z2yvyvtyasm2dfuh76fsy75ulv0xl77c4xtn",
           "restricted": true
         },
         {
           "name": "provenance",
-          "address": "tp1vj5zw7zfdpneh4p6fd8pxccjd6ukau5xdtpqah",
+          "address": "tp199z2yvyvtyasm2dfuh76fsy75ulv0xl77c4xtn",
           "restricted": true
         }
       ]
     },
-    "oracle": {
-      "port_id": "oracle",
-      "oracle": ""
-    },
-    "params": null,
-    "quarantine": {
-      "quarantined_addresses": [],
-      "auto_responses": [],
-      "quarantined_funds": []
+    "nft": {
+      "classes": [],
+      "entries": []
     },
     "ratelimitedibc": {
       "params": {
         "contract_address": ""
       }
+    },
+    "registry": {
+      "entries": []
     },
     "sanction": {
       "params": {
@@ -600,7 +611,7 @@
     },
     "transfer": {
       "port_id": "transfer",
-      "denom_traces": [],
+      "denoms": [],
       "params": {
         "send_enabled": true,
         "receive_enabled": true
@@ -615,6 +626,22 @@
       "queued_triggers": []
     },
     "upgrade": {},
+    "vault": {
+      "vaults": [],
+      "payout_timeout_queue": [],
+      "pending_swap_out_queue": {
+        "latest_sequence_number": "0",
+        "entries": []
+      },
+      "fee_timeout_queue": [],
+      "params": {
+        "tech_fee_address": "tp1evyv7neax9qtxxzuexnhylxyz4guvsyjptn4ha",
+        "default_aum_fee_bips": 15,
+        "gov_only_vault_creation": false
+      },
+      "navs": [],
+      "payout_verification_set": []
+    },
     "vesting": {},
     "wasm": {
       "params": {

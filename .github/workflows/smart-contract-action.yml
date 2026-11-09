@@ -75,7 +75,7 @@ jobs:
   test_with_provenance_release:
     needs: docker
     runs-on: ubuntu-latest
-    name: Test with provenance release with proposals
+    name: Test with provenance release test script
     steps:
       - uses: actions/checkout@v3
         with:
@@ -84,14 +84,47 @@ jobs:
         uses: ./
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          provenance_version: "v1.19.0-rc2"
+          provenance_version: "v1.31.0"
           smart_contract_action_version: ${{ needs.docker.outputs.smart_contract_action_version }}
+          test_script: "./smart-contract-action/test/test.sh"
+
+  test_with_provenance_branch:
+    needs: docker
+    runs-on: ubuntu-latest
+    name: Test with provenance main branch
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Smart Contract Action
+        uses: ./
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          provenance_version: "main"
+          smart_contract_action_version: ${{ needs.docker.outputs.smart_contract_action_version }}
+          test_script: "./smart-contract-action/test/test.sh"
+
+  test_with_provenance_branch_init_data:
+    needs: docker
+    runs-on: ubuntu-latest
+    name: Test with provenance main branch and init_data
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Smart Contract Action
+        uses: ./
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          provenance_version: "main"
+          smart_contract_action_version: ${{ needs.docker.outputs.smart_contract_action_version }}
+          init_data: "./smart-contract-action/test/init_data"
           test_script: "./smart-contract-action/test/test.sh"
 
   test_with_provenance_release_no_script:
     needs: docker
     runs-on: ubuntu-latest
-    name: Test with provenance release without proposals
+    name: Test with provenance release without test script
     steps:
       - uses: actions/checkout@v3
         with:
@@ -100,13 +133,13 @@ jobs:
         uses: ./
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          provenance_version: "v1.19.0-rc2"
+          provenance_version: "v1.31.0"
           smart_contract_action_version: ${{ needs.docker.outputs.smart_contract_action_version }}
 
   test_with_init_data:
     needs: docker
     runs-on: ubuntu-latest
-    name: Test with provenance release without proposals
+    name: Test with provenance release with test script and init_data
     steps:
       - uses: actions/checkout@v3
         with:
@@ -115,6 +148,7 @@ jobs:
         uses: ./
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          provenance_version: "v1.19.0-rc2"
+          provenance_version: "v1.31.0"
           smart_contract_action_version: ${{ needs.docker.outputs.smart_contract_action_version }}
           init_data: "./smart-contract-action/test/init_data"
+          test_script: "./smart-contract-action/test/test.sh"

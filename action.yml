@@ -6,7 +6,7 @@ inputs:
     description: 'Github token from the workflow'
     required: true
   provenance_version:
-    description: 'Version of Provenance to perform test. Either a release or a branch'
+    description: 'Version of Provenance to perform test. A release tag, branch, or commit SHA'
     required: true
   smart_contract_action_version:
     description: 'Version of Smart Contract Action to perform test'
@@ -21,15 +21,57 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: download provenance release
-      uses: dawidd6/action-download-artifact@v2
+    # Release tags already have a published linux zip. Every other ref is built
+    # from source because Provenance's release workflow does not run on branch
+    # pushes, including main.
+    - name: Classify provenance ref
+      id: provenance-ref
+      shell: bash
+      env:
+        PROVENANCE_VERSION: ${{ inputs.provenance_version }}
+      run: |
+        if [[ "$PROVENANCE_VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-rc[0-9]+)?$ ]]; then
+          echo "mode=release" >> "$GITHUB_OUTPUT"
+        else
+          echo "mode=build" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Download provenance release
+      if: steps.provenance-ref.outputs.mode == 'release'
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github_token }}
+        PROVENANCE_VERSION: ${{ inputs.provenance_version }}
+      run: |
+        gh release download "$PROVENANCE_VERSION" \
+          --repo provenance-io/provenance \
+          --pattern "provenance-linux-amd64-${PROVENANCE_VERSION}.zip" \
+          --dir "$GITHUB_WORKSPACE"
+
+    - name: Checkout provenance
+      if: steps.provenance-ref.outputs.mode == 'build'
+      uses: actions/checkout@v4
       with:
-        github_token: ${{ inputs.GITHUB_TOKEN }}
-        branch: ${{ inputs.provenance_version }}
-        repo: provenance-io/provenance
-        workflow: release.yml
-        workflow_conclusion: ""
-        name: linux-zip
+        repository: provenance-io/provenance
+        ref: ${{ inputs.provenance_version }}
+        path: provenance-src
+
+    - name: Build provenance linux zip
+      if: steps.provenance-ref.outputs.mode == 'build'
+      shell: bash
+      run: |
+        set -euo pipefail
+        docker run --rm \
+          -v "$GITHUB_WORKSPACE/provenance-src:/src" \
+          -v "${{ github.action_path }}/scripts/build_provenance.sh:/usr/local/bin/build_provenance.sh:ro" \
+          -w /src \
+          -e HOST_UID="$(id -u)" \
+          -e HOST_GID="$(id -g)" \
+          ubuntu:20.04 \
+          bash /usr/local/bin/build_provenance.sh
+        cp provenance-src/build/provenance-linux-amd64-*.zip "$GITHUB_WORKSPACE/"
+        rm -rf provenance-src
+
     - name: run smart contract action
       id: smart-contract-action
       shell: bash
